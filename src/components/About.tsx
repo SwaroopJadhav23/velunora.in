@@ -105,7 +105,7 @@ export default function About() {
               Plush.Palz is not just an online store — it is a magical gateway to your favorite character universes. Inspired by Pokémon Center, LINE Friends, and Sanrio, we believe that every plush toy is a friend that has its own unique personality.
             </p>
             <p>
-              We source only **premium imported plushies** made with ultra-soft velocity fabric and bouncy micro-elastic cotton fill. They are double-stitched for durability, hypoallergenic, and smell like sweet happiness.
+              Our plushies are imported and thrifted — carefully chosen character friends ready to join your collection.
             </p>
             <p>
               Whether you are an avid collector decorating your cozy workspace, or searching for the ultimate hugging companion for bedtime comfort, we curate each character with Apple-level care and deliver them straight to you across India.

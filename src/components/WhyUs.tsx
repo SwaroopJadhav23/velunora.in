@@ -6,14 +6,14 @@ const cards = [
   {
     icon: Sparkles,
     title: 'Premium Imported',
-    desc: 'Carefully curated collectibles sourced directly from Japan, Korea, and official global distributors. Genuine character plushies.',
+    desc: 'Carefully curated collectibles sourced directly from Japan, Korea, and official global distributors. Genuine character plushies — and some are thrifted finds.',
     color: 'bg-gradient-soft-pink text-candy',
     animation: { rotate: [0, -10, 10, 0] },
   },
   {
     icon: Star,
-    title: 'Ultra Soft',
-    desc: 'Made with premium hypoallergenic velvet fabrics and micro-elastic down filling that holds its shape through side hugging.',
+    title: 'Imported & Thrifted',
+    desc: 'Our plushies are imported and thrifted — carefully chosen character friends ready to join your collection.',
     color: 'bg-gradient-soft-yellow text-sunny',
     animation: { scale: [1, 1.15, 1] },
   },
