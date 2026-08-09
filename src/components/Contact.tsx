@@ -1,90 +1,49 @@
-import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Instagram, MessageCircle, MapPin, Star } from 'lucide-react';
-import { WHATSAPP_NUMBER, WHATSAPP_DISPLAY_NUMBER, API_BASE_URL } from '../config/api';
+import { Instagram, MessageCircle, MapPin, Heart } from 'lucide-react';
+import { WHATSAPP_NUMBER, WHATSAPP_DISPLAY_NUMBER } from '../config/api';
 
 const contactCards = [
   {
-    icon: Instagram,
-    label: 'Instagram DM',
-    value: '@plush.palz',
-    href: 'https://instagram.com/plush.palz',
-    color: 'hover:border-candy/30 hover:text-candy',
-  },
-  {
     icon: MessageCircle,
     isWhatsApp: true,
-    label: 'WhatsApp',
+    label: 'WhatsApp / DM',
     value: WHATSAPP_DISPLAY_NUMBER,
-    href: `https://wa.me/${WHATSAPP_NUMBER}`,
+    href: `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hi Velunora! I would like to order a bouquet 🌸')}`,
     color: 'hover:border-[#25D366]/30 hover:text-[#25D366]',
   },
   {
-    icon: Mail,
-    label: 'Email Support',
-    value: 'hello@plushpalz.in',
-    href: 'mailto:hello@plushpalz.in',
-    color: 'hover:border-primary/30 hover:text-primary',
+    icon: Instagram,
+    label: 'Instagram',
+    value: '@velunora',
+    href: 'https://instagram.com/velunora',
+    color: 'hover:border-rose/40 hover:text-rose',
+  },
+  {
+    icon: MapPin,
+    label: 'Based In',
+    value: 'Pune',
+    href: '#contact',
+    color: 'hover:border-gold/40 hover:text-gold',
   },
 ];
 
 export default function Contact() {
-  const [snorlaxImg, setSnorlaxImg] = useState('/snorlax.png');
-
-  useEffect(() => {
-    fetch(`${API_BASE_URL}/api/sections/about`)
-      .then(res => res.json())
-      .then((data: any[]) => {
-        if (data && data.length > 0) {
-          const backAsset = data.find(item => item.key === 'mascot_back');
-          if (backAsset?.imageUrl) {
-            setSnorlaxImg(backAsset.imageUrl.startsWith('/') ? `${API_BASE_URL}${backAsset.imageUrl}` : backAsset.imageUrl);
-          }
-        }
-      })
-      .catch(err => console.warn('Failed to load footer Snorlax image:', err));
-  }, []);
-
   return (
-    <section id="contact" className="relative pt-28 sm:pt-32 md:pt-36 pb-0 overflow-hidden scroll-mt-28">
-      {/* Self-contained CSS styles for the shooting star */}
-      <style>{`
-        @keyframes shooting-star-anim {
-          0% {
-            transform: translate(0, 0) rotate(-40deg) scale(0);
-            opacity: 0;
-          }
-          1% {
-            transform: translate(-40px, 40px) rotate(-40deg) scale(1);
-            opacity: 1;
-          }
-          5% {
-            transform: translate(-300px, 300px) rotate(-40deg) scale(0);
-            opacity: 0;
-          }
-          100% {
-            transform: translate(-300px, 300px) rotate(-40deg) scale(0);
-            opacity: 0;
-          }
-        }
-        .shooting-star-element {
-          animation: shooting-star-anim 20s linear infinite;
-        }
-      `}</style>
-
-      {/* Rebranded Section: Adopt Your New Buddy */}
+    <section id="contact" className="relative pt-28 sm:pt-32 md:pt-36 pb-0 overflow-hidden scroll-mt-28 bg-satin">
       <div className="max-w-4xl mx-auto text-center px-6 mb-10 md:mb-20">
-        <span className="text-xs font-bold uppercase tracking-[0.2em] text-primary bg-primary/5 px-4.5 py-2 rounded-full mb-4 border border-primary/10 inline-block">
-          Adopt Your New Buddy
-        </span>
-        <h2 className="font-heading text-4xl md:text-5xl text-darkText font-extrabold mb-4 leading-tight select-none">
-          Ready to adopt your next plush companion?
+        <p className="font-heading text-sm tracking-[0.35em] uppercase text-gold mb-4">
+          DM to Order
+        </p>
+        <h2 className="font-heading text-4xl md:text-5xl text-darkText font-semibold mb-4 leading-tight">
+          Ready for flowers that never fade?
         </h2>
-        <p className="font-body text-base text-darkText/70 max-w-lg mx-auto mb-10">
-          Have queries, bulk orders, or looking to custom-source a character? Tap on a portal to chat with us directly!
+        <p className="font-body text-base text-darkText/65 max-w-lg mx-auto mb-4">
+          Custom bouquets & pipe cleaner blooms — message us to place your order.
+        </p>
+        <p className="font-body text-xs uppercase tracking-[0.2em] text-rose mb-10">
+          Prepaid orders only
         </p>
 
-        {/* Adopt CTAs */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           {contactCards.map((c) => {
             const Icon = c.icon;
@@ -92,12 +51,12 @@ export default function Contact() {
               <motion.a
                 key={c.label}
                 href={c.href}
-                target="_blank"
-                rel="noopener noreferrer"
+                target={c.href.startsWith('http') ? '_blank' : undefined}
+                rel={c.href.startsWith('http') ? 'noopener noreferrer' : undefined}
                 whileHover={{ y: -3, scale: 1.02 }}
-                className={`flex items-center gap-3 bg-white rounded-3xl px-6 py-4 border border-darkText/5 shadow-[0_4px_20px_rgba(0,0,0,0.01)] transition-all duration-300 min-w-[220px] justify-center ${c.color}`}
+                className={`flex items-center gap-3 bg-white/80 rounded-3xl px-6 py-4 border border-gold/15 shadow-[0_4px_20px_rgba(0,0,0,0.02)] transition-all duration-300 min-w-[220px] justify-center ${c.color}`}
               >
-                <div className="w-9 h-9 rounded-xl bg-bgMain flex items-center justify-center">
+                <div className="w-9 h-9 rounded-xl bg-cream flex items-center justify-center">
                   {'isWhatsApp' in c && c.isWhatsApp ? (
                     <img src="/whatsapp.png" alt="WhatsApp" className="w-5 h-5 object-contain" />
                   ) : (
@@ -105,8 +64,8 @@ export default function Contact() {
                   )}
                 </div>
                 <div className="text-left">
-                  <p className="text-[10px] text-darkText/40 font-bold uppercase tracking-wider">{c.label}</p>
-                  <p className="font-heading font-bold text-xs md:text-sm">{c.value}</p>
+                  <p className="text-[10px] text-darkText/40 font-semibold uppercase tracking-wider">{c.label}</p>
+                  <p className="font-heading font-semibold text-xs md:text-sm">{c.value}</p>
                 </div>
               </motion.a>
             );
@@ -114,131 +73,46 @@ export default function Contact() {
         </div>
       </div>
 
-      {/* Magical Night Sky Footer */}
-      <footer className="relative bg-[#0A071E] text-white py-20 px-6 rounded-t-[48px] md:rounded-t-[64px] overflow-hidden z-20">
+      <footer className="relative bg-[#2C2C2C] text-white py-16 px-6 rounded-t-[48px] md:rounded-t-[64px] overflow-hidden z-20">
+        <div className="absolute inset-0 opacity-20 pointer-events-none"
+          style={{
+            backgroundImage: `radial-gradient(circle at 20% 30%, rgba(196,163,90,0.25), transparent 40%), radial-gradient(circle at 80% 70%, rgba(201,160,160,0.2), transparent 40%)`,
+          }}
+        />
 
-        {/* Shooting Star Easter Egg */}
-        <div className="absolute top-[15%] right-[-100px] w-[180px] h-[2px] bg-gradient-to-l from-white to-transparent shooting-star-element pointer-events-none z-10" />
-
-        {/* Night Sky Background Stars */}
-        <div className="absolute inset-0 opacity-40 pointer-events-none">
-          {[...Array(24)].map((_, i) => (
-            <div
-              key={i}
-              className="absolute w-1 h-1 bg-white rounded-full animate-twinkle"
-              style={{
-                top: `${Math.random() * 80}%`,
-                left: `${Math.random() * 95}%`,
-                animationDelay: `${Math.random() * 3}s`,
-                animationDuration: `${2 + Math.random() * 2}s`,
-              }}
-            />
-          ))}
-          {[...Array(6)].map((_, i) => (
-            <Star
-              key={i}
-              size={6}
-              className="absolute text-sunny fill-sunny animate-pulse"
-              style={{
-                top: `${Math.random() * 40}%`,
-                left: `${Math.random() * 90}%`,
-                animationDelay: `${Math.random() * 4}s`,
-              }}
-            />
-          ))}
-        </div>
-
-        {/* Crescent Moon */}
-        <div className="absolute top-12 right-12 md:right-24 pointer-events-none select-none z-10 animate-float-slower">
-          <svg className="w-16 h-16 text-[#FFF5C2] fill-[#FFF5C2] drop-shadow-[0_0_20px_rgba(255,245,194,0.5)]" viewBox="0 0 100 100">
-            <path d="M 50,10 A 40,40 0 1,0 90,50 A 30,30 0 1,1 50,10" />
-          </svg>
-        </div>
-
-        {/* Night Clouds */}
-        <div className="absolute bottom-[-10px] left-0 w-full opacity-10 pointer-events-none select-none flex justify-between z-10">
-          <svg className="w-80 h-32 fill-white animate-drift-slow" viewBox="0 0 100 50">
-            <path d="M 10,40 A 10,10 0 0,1 25,25 A 15,15 0 0,1 50,25 A 10,10 0 0,1 60,40 Z" />
-          </svg>
-          <svg className="w-96 h-32 fill-white animate-drift-slower" viewBox="0 0 100 50">
-            <path d="M 10,40 A 10,10 0 0,1 25,25 A 15,15 0 0,1 50,25 A 10,10 0 0,1 60,40 Z" />
-          </svg>
-        </div>
-
-        {/* Footer Content */}
         <div className="max-w-6xl mx-auto relative z-20 flex flex-col items-center text-center">
+          <img
+            src="/logo.jpeg"
+            alt="Velunora Logo"
+            className="w-16 h-16 rounded-full object-cover shadow-md ring-1 ring-gold/40 mb-4"
+          />
+          <span className="font-heading text-2xl font-semibold tracking-[0.12em] uppercase mb-1">
+            Velunora
+          </span>
+          <span className="text-[10px] tracking-[0.25em] uppercase text-gold/80 mb-4">
+            Fuzzy Wire Crafts
+          </span>
 
-          {/* Sleeping Mascot: Snorlax 💤 */}
-          <div className="relative mb-8 flex flex-col items-center">
-            {/* Zzz floating animations */}
-            <div className="absolute top-[-25px] right-[-20px] flex flex-col text-sunny text-xs font-bold font-heading select-none pointer-events-none">
-              <motion.span
-                animate={{ y: [-5, -25], x: [0, 10], opacity: [0, 1, 0] }}
-                transition={{ duration: 3, repeat: Infinity, ease: 'easeOut', delay: 0 }}
-                className="absolute text-sm"
-              >
-                Z
-              </motion.span>
-              <motion.span
-                animate={{ y: [-5, -20], x: [0, -8], opacity: [0, 1, 0] }}
-                transition={{ duration: 3, repeat: Infinity, ease: 'easeOut', delay: 1 }}
-                className="absolute text-xs"
-              >
-                z
-              </motion.span>
-              <motion.span
-                animate={{ y: [-5, -15], x: [0, 5], opacity: [0, 1, 0] }}
-                transition={{ duration: 3, repeat: Infinity, ease: 'easeOut', delay: 2 }}
-                className="absolute text-[8px]"
-              >
-                z
-              </motion.span>
-            </div>
-
-            {/* Cloud representation under Snorlax */}
-            <div className="relative w-44 h-28 flex items-center justify-center">
-              <svg className="absolute bottom-0 w-full h-16 text-white/10 fill-current" viewBox="0 0 100 50">
-                <path d="M 10,40 A 12,12 0 0,1 30,20 A 15,15 0 0,1 70,20 A 12,12 0 0,1 90,40 Z" />
-              </svg>
-              <motion.img
-                src={snorlaxImg}
-                alt="Sleeping Snorlax"
-                animate={{ y: [-3, 3, -3] }}
-                transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-                className="w-28 h-28 object-contain relative z-10 filter drop-shadow-md"
-              />
-            </div>
-            <span className="text-[10px] text-white/40 tracking-wider font-bold mt-1">Snorlax is sleeping... Shh! 🤫</span>
-          </div>
-
-          {/* Logo brand wordmark */}
-          <div className="flex items-center gap-2 mb-3">
-            <img
-              src="/logo.jpeg"
-              alt="Plush.Palz Logo"
-              className="w-8 h-8 rounded-full object-cover shadow-md"
-            />
-            <span className="font-heading text-xl font-bold tracking-tight">
-              Plush<span className="text-candy">.Palz</span>
-            </span>
-          </div>
-
-          <p className="text-xs text-white/50 max-w-sm mb-6 leading-relaxed">
-            Premium Imported Collectible Plushies.<br />
-            Sanrio • Pokémon • Anime • Disney Store.
+          <p className="font-script text-2xl text-rose mb-3">
+            Where Flowers Never Fade
           </p>
 
-          {/* Logistics summary */}
+          <p className="text-xs text-white/50 max-w-sm mb-6 leading-relaxed">
+            Pipe Cleaner Bouquet • Custom Bouquets<br />
+            Beautiful bouquets. Thoughtful prices. Endless smiles.
+          </p>
+
           <div className="flex items-center gap-1.5 text-xs text-white/70 bg-white/5 border border-white/10 px-4.5 py-2.5 rounded-full mb-8">
-            <MapPin size={12} className="text-candy" />
-            <span>Delivering Pan-India • Ships in premium carton packaging 🇮🇳</span>
+            <MapPin size={12} className="text-gold" />
+            <span>Pune • DM to Order • Prepaid only</span>
           </div>
 
-          <div className="w-24 h-px bg-white/10 my-4" />
+          <Heart size={16} className="text-gold mb-4 fill-gold/30" />
 
-          {/* Copyright */}
-          <p className="text-[10px] text-white/30 font-bold uppercase tracking-wider">
-            © 2026 Plush.Palz. All rights reserved. Designed for character collectors.
+          <div className="w-24 h-px bg-white/10 my-2" />
+
+          <p className="text-[10px] text-white/30 font-medium uppercase tracking-wider mt-4">
+            © 2026 Velunora. All rights reserved.
           </p>
         </div>
       </footer>

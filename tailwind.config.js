@@ -4,18 +4,24 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: '#7C3AED',
-        candy: '#FF6FB5',
-        sky: '#66D9FF',
-        sunny: '#FFD54F',
-        mint: '#78E6C8',
+        primary: '#8A9A7B',
+        candy: '#C9A0A0',
+        gold: '#C4A35A',
+        sage: '#6B7C5E',
+        rose: '#D4A5A5',
+        blush: '#F5E6E0',
+        cream: '#F7F0E6',
+        sky: '#C4A35A',
+        sunny: '#C4A35A',
+        mint: '#8A9A7B',
         white: '#FFFFFF',
-        bgMain: '#F8FAFF',
-        darkText: '#2D2D2D',
+        bgMain: '#F7F0E6',
+        darkText: '#2C2C2C',
       },
       fontFamily: {
-        heading: ['Fredoka', 'sans-serif'],
-        body: ['"Plus Jakarta Sans"', 'sans-serif'],
+        heading: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+        script: ['"Great Vibes"', 'cursive'],
+        body: ['"Outfit"', 'sans-serif'],
       },
       animation: {
         'float-slow': 'float 6s ease-in-out infinite',

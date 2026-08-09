@@ -5,9 +5,12 @@ interface BrandIntroProps {
   onComplete: () => void;
 }
 
+const BRAND = 'VELUNORA';
+const letters = BRAND.split('');
+
 export default function BrandIntro({ onComplete }: BrandIntroProps) {
   const shouldReduceMotion = useReducedMotion();
-  const [step, setStep] = useState(0);
+  const [visible, setVisible] = useState(true);
 
   useEffect(() => {
     if (shouldReduceMotion) {
@@ -15,32 +18,13 @@ export default function BrandIntro({ onComplete }: BrandIntroProps) {
       return;
     }
 
-    // Sequence timeline:
-    // 0ms: Dark screen, stars fade in
-    // 400ms: Clouds start drifting in
-    // 800ms: Sparkles appear
-    // 1200ms: Logo fades in with soft glow
-    // 1600ms: Cute character emojis peek from behind clouds
-    // 2000ms: Headline fades in
-    // 2600ms: Clouds slide open (left and right), revealing homepage
-    // 3200ms: Animation complete
-
-    const timer1 = setTimeout(() => setStep(1), 400); // clouds
-    const timer2 = setTimeout(() => setStep(2), 800); // sparkles
-    const timer3 = setTimeout(() => setStep(3), 1200); // logo
-    const timer4 = setTimeout(() => setStep(4), 1600); // characters peek
-    const timer5 = setTimeout(() => setStep(5), 2000); // headline
-    const timer6 = setTimeout(() => setStep(6), 2600); // clouds open / fade out
-    const timer7 = setTimeout(() => onComplete(), 3200); // finish
+    // Hold the finished composition, then fade out
+    const exitTimer = setTimeout(() => setVisible(false), 3000);
+    const doneTimer = setTimeout(() => onComplete(), 3750);
 
     return () => {
-      clearTimeout(timer1);
-      clearTimeout(timer2);
-      clearTimeout(timer3);
-      clearTimeout(timer4);
-      clearTimeout(timer5);
-      clearTimeout(timer6);
-      clearTimeout(timer7);
+      clearTimeout(exitTimer);
+      clearTimeout(doneTimer);
     };
   }, [onComplete, shouldReduceMotion]);
 
@@ -48,202 +32,169 @@ export default function BrandIntro({ onComplete }: BrandIntroProps) {
     return null;
   }
 
-  // Sparkles coordinate helper
   const sparkles = [
-    { top: '20%', left: '15%', size: 16, delay: 0.1 },
-    { top: '35%', left: '80%', size: 24, delay: 0.3 },
-    { top: '75%', left: '25%', size: 20, delay: 0.2 },
-    { top: '65%', left: '70%', size: 18, delay: 0.4 },
-    { top: '15%', left: '60%', size: 14, delay: 0.5 },
-  ];
-
-  // Twinkling stars coordinate helper
-  const stars = [
-    { top: '10%', left: '30%', size: 4 },
-    { top: '25%', left: '10%', size: 6 },
-    { top: '45%', left: '85%', size: 5 },
-    { top: '80%', left: '40%', size: 7 },
-    { top: '70%', left: '90%', size: 4 },
-    { top: '90%', left: '15%', size: 5 },
-    { top: '30%', left: '50%', size: 6 },
+    { top: '18%', left: '12%', size: 10, delay: 0.15 },
+    { top: '22%', left: '82%', size: 14, delay: 0.35 },
+    { top: '72%', left: '18%', size: 12, delay: 0.25 },
+    { top: '68%', left: '78%', size: 11, delay: 0.45 },
+    { top: '42%', left: '8%', size: 8, delay: 0.55 },
+    { top: '48%', left: '90%', size: 9, delay: 0.4 },
   ];
 
   return (
     <AnimatePresence>
-      {step < 6 && (
+      {visible && (
         <motion.div
+          key="velunora-preloader"
           initial={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.6, ease: 'easeInOut' }}
-          className="fixed inset-0 bg-[#0A071E] z-[9999] flex flex-col items-center justify-center overflow-hidden"
+          exit={{ opacity: 0, scale: 1.03, filter: 'blur(10px)' }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          className="fixed inset-0 z-[9999] flex flex-col items-center justify-center overflow-hidden"
+          style={{
+            background:
+              'radial-gradient(ellipse at 50% 40%, #FFF9F2 0%, #F7F0E6 45%, #EFE4D4 100%)',
+          }}
         >
-          {/* STEP 1: Twinkling Stars */}
-          {stars.map((star, idx) => (
-            <motion.div
-              key={`star-${idx}`}
-              initial={{ opacity: 0, scale: 0 }}
-              animate={{ opacity: [0.2, 1, 0.2], scale: [0.8, 1.2, 0.8] }}
+          <div
+            className="absolute inset-0 pointer-events-none opacity-60"
+            style={{
+              backgroundImage: `
+                radial-gradient(ellipse at 20% 25%, rgba(255,255,255,0.7) 0%, transparent 45%),
+                radial-gradient(ellipse at 80% 75%, rgba(196,163,90,0.14) 0%, transparent 42%),
+                radial-gradient(ellipse at 50% 100%, rgba(201,160,160,0.12) 0%, transparent 50%)
+              `,
+            }}
+          />
+
+          <div className="absolute inset-0 pointer-events-none shadow-[inset_0_0_120px_rgba(180,150,100,0.12)]" />
+
+          {sparkles.map((s, i) => (
+            <motion.svg
+              key={i}
+              initial={{ opacity: 0, scale: 0, rotate: -20 }}
+              animate={{
+                opacity: [0, 0.9, 0.45, 0.9],
+                scale: [0, 1, 0.85, 1],
+                rotate: 0,
+              }}
               transition={{
-                duration: 2,
+                duration: 2.4,
+                delay: s.delay,
                 repeat: Infinity,
-                delay: idx * 0.2,
                 ease: 'easeInOut',
               }}
-              style={{
-                position: 'absolute',
-                top: star.top,
-                left: star.left,
-                width: star.size,
-                height: star.size,
-                backgroundColor: '#FFFFFF',
-                borderRadius: '50%',
-                boxShadow: '0 0 10px #FFFFFF',
-              }}
-            />
+              className="absolute text-gold fill-current pointer-events-none"
+              style={{ top: s.top, left: s.left, width: s.size, height: s.size }}
+              viewBox="0 0 24 24"
+              aria-hidden
+            >
+              <path d="M12 0L14.6 9.4L24 12L14.6 14.6L12 24L9.4 14.6L0 12L9.4 9.4L12 0Z" />
+            </motion.svg>
           ))}
 
-          {/* STEP 3: Sparkles (fading in and glowing) */}
-          {step >= 2 &&
-            sparkles.map((sparkle, idx) => (
-              <motion.svg
-                key={`sparkle-${idx}`}
-                initial={{ opacity: 0, scale: 0, rotate: -30 }}
-                animate={{ opacity: 1, scale: 1, rotate: 0 }}
-                transition={{ duration: 0.5, delay: sparkle.delay }}
-                className="absolute text-sunny fill-current"
-                style={{
-                  top: sparkle.top,
-                  left: sparkle.left,
-                  width: sparkle.size,
-                  height: sparkle.size,
-                }}
-                viewBox="0 0 24 24"
-              >
-                <path d="M12 0L14.6 9.4L24 12L14.6 14.6L12 24L9.4 14.6L0 12L9.4 9.4L12 0Z" />
-              </motion.svg>
-            ))}
-
-          {/* STEP 2 & 6: Clouds layer that covers and then opens */}
-          {/* Left Cloud */}
-          <motion.div
-            initial={{ x: '-100%', opacity: 0 }}
-            animate={{ x: step >= 6 ? '-100%' : '0%', opacity: 0.95 }}
-            transition={{
-              x: { duration: step >= 6 ? 0.7 : 0.8, ease: 'easeInOut' },
-              opacity: { duration: 0.4 },
-            }}
-            className="absolute top-0 left-0 w-1/2 h-full bg-gradient-to-r from-purple/50 via-[#7C3AED]/20 to-transparent flex items-center justify-end pointer-events-none"
-          >
-            {/* Left Cloud Graphic */}
-            <svg
-              className="w-96 h-96 opacity-30 text-[#FF6FB5] fill-current translate-x-32"
-              viewBox="0 0 200 200"
-            >
-              <path d="M 40,80 A 30,30 0 0,1 90,60 A 40,40 0 0,1 150,80 A 30,30 0 0,1 180,120 A 40,40 0 0,1 140,160 L 40,160 A 30,30 0 0,1 40,80 Z" />
-            </svg>
-          </motion.div>
-
-          {/* Right Cloud */}
-          <motion.div
-            initial={{ x: '100%', opacity: 0 }}
-            animate={{ x: step >= 6 ? '100%' : '0%', opacity: 0.95 }}
-            transition={{
-              x: { duration: step >= 6 ? 0.7 : 0.8, ease: 'easeInOut' },
-              opacity: { duration: 0.4 },
-            }}
-            className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-purple/50 via-[#7C3AED]/20 to-transparent flex items-center justify-start pointer-events-none"
-          >
-            {/* Right Cloud Graphic */}
-            <svg
-              className="w-96 h-96 opacity-30 text-[#66D9FF] fill-current -translate-x-32"
-              viewBox="0 0 200 200"
-            >
-              <path d="M 40,80 A 30,30 0 0,1 90,60 A 40,40 0 0,1 150,80 A 30,30 0 0,1 180,120 A 40,40 0 0,1 140,160 L 40,160 A 30,30 0 0,1 40,80 Z" />
-            </svg>
-          </motion.div>
-
-          {/* STEP 5: Characters Peeking from behind Logo area / Cloud borders */}
-          {step >= 4 && (
-            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-              {/* Loopy 🌸 peeking from top-left */}
-              <motion.div
-                initial={{ y: 50, x: -50, scale: 0, opacity: 0 }}
-                animate={{ y: -70, x: -70, scale: 1.2, opacity: 1 }}
-                transition={{ duration: 0.5, type: 'spring', stiffness: 120 }}
-                className="absolute text-5xl"
-              >
-                🌸
-              </motion.div>
-              {/* Lotso 🐻 peeking from top-right */}
-              <motion.div
-                initial={{ y: 50, x: 50, scale: 0, opacity: 0 }}
-                animate={{ y: -70, x: 70, scale: 1.2, opacity: 1 }}
-                transition={{ duration: 0.5, type: 'spring', stiffness: 120, delay: 0.1 }}
-                className="absolute text-5xl"
-              >
-                🐻
-              </motion.div>
-              {/* Snorlax 💤 peeking from bottom-left */}
-              <motion.div
-                initial={{ y: 50, x: -50, scale: 0, opacity: 0 }}
-                animate={{ y: 70, x: -70, scale: 1.2, opacity: 1 }}
-                transition={{ duration: 0.5, type: 'spring', stiffness: 120, delay: 0.2 }}
-                className="absolute text-5xl"
-              >
-                💤
-              </motion.div>
-              {/* Bunny 🐰 peeking from bottom-right */}
-              <motion.div
-                initial={{ y: 50, x: 50, scale: 0, opacity: 0 }}
-                animate={{ y: 70, x: 70, scale: 1.2, opacity: 1 }}
-                transition={{ duration: 0.5, type: 'spring', stiffness: 120, delay: 0.3 }}
-                className="absolute text-5xl"
-              >
-                🐰
-              </motion.div>
-            </div>
-          )}
-
-          {/* STEP 4: Logo Fades in */}
-          {step >= 3 && (
+          <div className="relative z-10 flex flex-col items-center px-6 text-center select-none">
             <motion.div
-              initial={{ scale: 0.5, opacity: 0, y: -20 }}
-              animate={{ scale: 1, opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, ease: 'easeOut' }}
-              className="relative z-50 text-center select-none"
+              initial={{ opacity: 0, scale: 0.7, y: 12 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+              className="mb-8 sm:mb-10"
             >
-              <div className="w-40 h-40 rounded-full bg-gradient-to-tr from-candy via-[#7C3AED] to-sky p-1.5 shadow-[0_0_50px_rgba(255,111,181,0.6)] animate-float-slow">
-                <div className="w-full h-full rounded-full bg-[#0A071E] flex flex-col items-center justify-center">
-                  <span className="font-heading text-white text-3xl font-bold tracking-tight">Plush</span>
-                  <span className="font-heading text-candy text-2xl font-bold -mt-1">.Palz</span>
-                  <motion.span
-                    animate={{ scale: [1, 1.2, 1] }}
-                    transition={{ duration: 1.5, repeat: Infinity }}
-                    className="text-xs mt-1"
-                  >
-                    ✨✨
-                  </motion.span>
+              <div className="relative">
+                <motion.div
+                  animate={{ opacity: [0.35, 0.65, 0.35], scale: [1, 1.08, 1] }}
+                  transition={{ duration: 2.8, repeat: Infinity, ease: 'easeInOut' }}
+                  className="absolute inset-[-18%] rounded-full bg-gradient-to-tr from-gold/30 via-rose/20 to-sage/20 blur-2xl"
+                />
+                <div className="relative w-[96px] h-[96px] sm:w-[112px] sm:h-[112px] rounded-full p-[2px] bg-gradient-to-tr from-gold via-rose/80 to-sage shadow-[0_12px_40px_rgba(196,163,90,0.28)]">
+                  <img
+                    src="/logo.jpeg"
+                    alt="Velunora"
+                    className="w-full h-full rounded-full object-cover bg-cream"
+                  />
                 </div>
               </div>
             </motion.div>
-          )}
 
-          {/* STEP 6: Headline Fades in */}
-          {step >= 5 && (
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="absolute bottom-24 z-50 text-center px-6"
+            <motion.p
+              initial={{ opacity: 0, letterSpacing: '0.5em' }}
+              animate={{ opacity: 1, letterSpacing: '0.38em' }}
+              transition={{ duration: 0.8, delay: 0.35 }}
+              className="font-heading text-[10px] sm:text-xs uppercase text-gold/90 mb-4 sm:mb-5"
             >
-              <h2 className="font-heading text-2xl md:text-3xl text-white font-semibold tracking-wide text-shadow-glow">
-                Collect Your Favourite Characters
-              </h2>
-              <p className="text-sky text-sm md:text-base mt-2 font-body tracking-wider">
-                Premium Imported Plushies
-              </p>
+              Fuzzy Wire Crafts
+            </motion.p>
+
+            <h1
+              className="font-heading text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-semibold text-darkText tracking-[0.18em] sm:tracking-[0.22em] uppercase flex justify-center"
+              aria-label="Velunora"
+            >
+              {letters.map((letter, i) => (
+                <motion.span
+                  key={`${letter}-${i}`}
+                  initial={{ opacity: 0, y: 28, filter: 'blur(6px)' }}
+                  animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                  transition={{
+                    duration: 0.55,
+                    delay: 0.45 + i * 0.07,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
+                  className="inline-block"
+                >
+                  {letter}
+                </motion.span>
+              ))}
+            </h1>
+
+            <motion.div
+              initial={{ scaleX: 0, opacity: 0 }}
+              animate={{ scaleX: 1, opacity: 1 }}
+              transition={{ duration: 0.7, delay: 1.15, ease: [0.22, 1, 0.36, 1] }}
+              className="mt-5 sm:mt-6 h-px w-40 sm:w-52 origin-center bg-gradient-to-r from-transparent via-gold to-transparent"
+            />
+
+            <motion.div
+              initial={{ opacity: 0, scale: 0 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.4, delay: 1.35 }}
+              className="-mt-[5px] text-gold"
+              aria-hidden
+            >
+              <svg width="10" height="10" viewBox="0 0 24 24" className="fill-current">
+                <path d="M12 0L14.6 9.4L24 12L14.6 14.6L12 24L9.4 14.6L0 12L9.4 9.4L12 0Z" />
+              </svg>
             </motion.div>
-          )}
+
+            <motion.p
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.65, delay: 1.45, ease: [0.22, 1, 0.36, 1] }}
+              className="font-script text-2xl sm:text-3xl md:text-4xl text-rose mt-4 sm:mt-5"
+            >
+              Where Flowers Never Fade
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 1.8 }}
+              className="mt-10 sm:mt-12 flex items-center gap-2"
+              aria-hidden
+            >
+              {[0, 1, 2].map((d) => (
+                <motion.span
+                  key={d}
+                  animate={{ opacity: [0.25, 1, 0.25], scale: [0.85, 1.1, 0.85] }}
+                  transition={{
+                    duration: 1.1,
+                    delay: d * 0.18,
+                    repeat: Infinity,
+                    ease: 'easeInOut',
+                  }}
+                  className="w-1.5 h-1.5 rounded-full bg-gold"
+                />
+              ))}
+            </motion.div>
+          </div>
         </motion.div>
       )}
     </AnimatePresence>

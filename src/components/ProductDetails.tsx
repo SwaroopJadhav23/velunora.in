@@ -119,9 +119,9 @@ export default function ProductDetails({ slug }: ProductDetailsProps) {
       : `${window.location.origin}${p.src.startsWith('/') ? '' : '/'}${p.src}`;
 
     const lines = [
-      'Hello Plush.Palz!',
+      'Hello Velunora!',
       '',
-      "I'm looking to order this plush from your website:",
+      "I'd like to order this bouquet from your website:",
       '',
       `Product Name: *${p.name}*`,
       `Collection: *${p.universe}*`,
@@ -137,9 +137,9 @@ export default function ProductDetails({ slug }: ProductDetailsProps) {
 
     lines.push(`Product Image: ${fullImageUrl}`);
     lines.push('');
-    lines.push("Please let me know if it is available.");
+    lines.push('Please let me know if it is available. (Prepaid orders only)');
     lines.push('');
-    lines.push('Thank you!');
+    lines.push('Thank you! 🌸');
 
     const message = lines.join('\n');
     const encoded = encodeURIComponent(message);
@@ -165,22 +165,22 @@ export default function ProductDetails({ slug }: ProductDetailsProps) {
     likes: '18.4k',
     comments: '489',
     views: '240k views',
-    caption: `Nothing beats cuddling up with the authentic imported ${p.name}. Tap link in bio to adopt! 🌸`,
+    caption: `Handcrafted ${p.name} — flowers that never fade. DM to order! 🌸`,
   };
 
   // General FAQs
   const detailsFAQs = [
     {
       q: 'How do I complete my purchase?',
-      a: 'Adopt your plush by clicking "Order on WhatsApp". It opens a direct chat with us carrying all product details. We accept pre-payments via UPI or credit/debit cards.',
+      a: 'Tap “Order on WhatsApp” to open a chat with all product details. Velunora accepts prepaid orders only via UPI and other secure online payments.',
     },
     {
-      q: 'Are these authentic licensed items?',
-      a: 'Yes, absolutely! We source all our character plushies directly from official stores and authorized distributors abroad (Japan, Korea, global outlets).',
+      q: 'Are these handmade?',
+      a: 'Yes — every Velunora bouquet is handcrafted with high-quality pipe cleaners (fuzzy wire) so your flowers never wilt.',
     },
     {
       q: 'Do you offer returns or exchanges?',
-      a: 'Due to custom import customs and handling, all catalog orders are final. However, if your item is damaged during transit, notify us with an unboxing video within 24 hours for a full replacement!',
+      a: 'Because each piece is handmade, catalog orders are final. If your bouquet arrives damaged, notify us with unboxing photos within 24 hours and we’ll make it right.',
     },
   ];
 
@@ -221,7 +221,7 @@ export default function ProductDetails({ slug }: ProductDetailsProps) {
             {/* Logo in top-right corner of image container */}
             <img 
               src="/logo.jpeg" 
-              alt="Plush.Palz Logo" 
+              alt="Velunora Logo" 
               className="absolute top-4 right-4 w-10 h-10 rounded-full object-cover shadow-md border-2 border-white/80 z-20 select-none pointer-events-none"
             />
 
@@ -393,7 +393,7 @@ export default function ProductDetails({ slug }: ProductDetailsProps) {
       {relatedProducts.length > 0 && (
         <div className="mb-16">
           <h4 className="font-heading text-xl md:text-2xl text-darkText font-extrabold mb-6 flex items-center gap-2">
-            <span>🌟</span> Related Plushies
+            <span>🌸</span> Related Bouquets
           </h4>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
             {relatedProducts.map((rp) => (
@@ -450,7 +450,7 @@ export default function ProductDetails({ slug }: ProductDetailsProps) {
             {mockReel.title}
           </h4>
           <p className="text-xs md:text-sm text-white/70 font-body leading-relaxed mb-6 max-w-xl">
-            {mockReel.caption} Our video features are blowing up on the feed! Join the plush collectors community.
+            {mockReel.caption} Follow along for custom bouquets and fuzzy wire crafts from Pune.
           </p>
 
           {/* Social counts */}
@@ -493,10 +493,10 @@ export default function ProductDetails({ slug }: ProductDetailsProps) {
             <div className="absolute bottom-4 left-4 right-4 z-20 text-[9px] text-white/90">
               <div className="flex items-center gap-1 mb-1 font-bold">
                 <span className="w-4 h-4 rounded-full bg-candy flex items-center justify-center text-[7px]">🌸</span>
-                <span>plush.palz</span>
+                <span>velunora</span>
               </div>
               <p className="line-clamp-2 text-[8px] opacity-75">
-                Cuddles, squishiness, and joy! Grab the viral plushies today.
+                Where flowers never fade — DM to order your bouquet.
               </p>
             </div>
           </motion.div>

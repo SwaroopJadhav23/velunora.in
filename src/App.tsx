@@ -21,7 +21,7 @@ import { logPageVisit } from './config/api';
 function App() {
   const [introStage, setIntroStage] = useState<'playing' | 'revealing' | 'complete'>(() => {
     if (typeof window !== 'undefined') {
-      const visited = sessionStorage.getItem('plush-visited');
+      const visited = sessionStorage.getItem('velunora-visited');
       const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       if (visited || prefersReduced) {
         return 'complete';
@@ -121,7 +121,7 @@ function App() {
       particle.style.top = `${e.clientY}px`;
 
       // Assign candy pink or sunny yellow randomly
-      const colors = ['#FF6FB5', '#FFD54F', '#66D9FF'];
+      const colors = ['#C9A0A0', '#C4A35A', '#8A9A7B'];
       const chosenColor = colors[Math.floor(Math.random() * colors.length)];
       particle.style.background = chosenColor;
       particle.style.boxShadow = `0 0 10px ${chosenColor}`;
@@ -142,7 +142,7 @@ function App() {
     setIntroStage('revealing');
     setTimeout(() => {
       setIntroStage('complete');
-      sessionStorage.setItem('plush-visited', 'true');
+      sessionStorage.setItem('velunora-visited', 'true');
     }, 600); // 600ms transition to complete stage
   };
 
@@ -165,39 +165,29 @@ function App() {
             <Hero introStage={introStage} />
 
             {/* Section transition divider */}
-            <CurveDivider topColor="#FAF5FF" bottomColor="#FAF5FF" />
+            <CurveDivider topColor="#F7F0E6" bottomColor="#F7F0E6" />
 
-            {/* Section 2: Meet The Plush Universe (storytelling brand intro) */}
+            {/* Who We Are + What We Sell */}
             <About />
 
-            {/* Section transition divider */}
-            <CloudDivider topColor="#F0F4FF" bottomColor="#F0F4FF" />
+            <CloudDivider topColor="#FAF6EF" bottomColor="#FAF6EF" />
 
-            {/* Section 3: Choose Your Universe portals list */}
             <UniversePortals selectedUniverse={selectedUniverse} onSelectUniverse={setSelectedUniverse} />
 
-            {/* Section 4: Featured Character Spotlight centerpiece */}
             <Spotlight />
 
-            {/* Section 5: Trending Plush Collection Products grid */}
             <TrendingCollection selectedUniverse={selectedUniverse} onSelectUniverse={setSelectedUniverse} />
 
-            {/* Section transition divider */}
-            <CloudDivider topColor="#ffffff" bottomColor="#ffffff" />
+            <CloudDivider topColor="#FAF6EF" bottomColor="#FAF6EF" />
 
-            {/* Section 6: Why Everyone Loves Plush.Palz features */}
             <WhyUs />
 
-            {/* Section 7: Instagram Universe */}
             <FromTheGram />
 
-            {/* Section 8: Collector Reviews */}
             <CustomerLove />
 
-            {/* Section 9: FAQ */}
             <HowItWorks />
 
-            {/* Section 10: Adopt Your New Buddy + Starry Night sky footer */}
             <Contact />
           </>
         ) : route.type === 'admin' ? (

@@ -478,11 +478,11 @@ export default function AdminDashboard() {
           <div className="flex items-center gap-3">
             <img
               src="/logo.jpeg"
-              alt="Plush.Palz Logo"
+              alt="Velunora Logo"
               className="w-8 h-8 rounded-full object-cover shadow-md shrink-0"
             />
             <span className="font-heading text-lg tracking-tight text-darkText font-bold select-none shrink-0">
-              Plush<span className="text-candy">.Palz</span> <span className="text-[10px] bg-primary/10 text-primary border border-primary/20 px-2 py-0.5 rounded-full ml-1 font-body font-bold">Admin</span>
+              Velunora <span className="text-[10px] bg-gold/10 text-gold border border-gold/20 px-2 py-0.5 rounded-full ml-1 font-body font-bold">Admin</span>
             </span>
           </div>
 
@@ -713,7 +713,7 @@ export default function AdminDashboard() {
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
                   <div>
                     <h3 className="font-body text-lg font-bold text-darkText">Catalog Management</h3>
-                    <p className="text-xs text-darkText/50">Add or edit character plush products, mark promotional values, and upload item images.</p>
+                    <p className="text-xs text-darkText/50">Add or edit bouquet products, mark promotional values, and upload item images.</p>
                   </div>
                   <button
                     onClick={() => {
@@ -734,14 +734,14 @@ export default function AdminDashboard() {
                     className="bg-primary hover:bg-primary-dark text-white font-body font-bold text-xs py-3 px-5 rounded-full flex items-center gap-2 shadow-sm transition-all"
                   >
                     <Plus size={14} />
-                    <span>Add New Plush</span>
+                    <span>Add New Bouquet</span>
                   </button>
                 </div>
 
                 {products.length === 0 ? (
                   <div className="text-center py-20 bg-white/20 border border-dashed border-darkText/10 rounded-2xl">
                     <p className="font-body text-darkText/40 mb-2">No products exist in database</p>
-                    <p className="text-xs text-darkText/30">Click "Add New Plush" to get started!</p>
+                    <p className="text-xs text-darkText/30">Click "Add New Bouquet" to get started!</p>
                   </div>
                 ) : (
                   <div>
@@ -913,7 +913,7 @@ export default function AdminDashboard() {
                           {/* Mini Title Content */}
                           <div className="text-center max-w-[65%] pointer-events-none">
                             <span className="text-[7px] bg-white border border-primary/10 px-2 py-0.5 rounded-full text-primary font-bold shadow-sm inline-block mb-1">
-                              ✨ Welcome to the Plush.Palz Universe ✨
+                              ✨ Welcome to Velunora ✨
                             </span>
                             <h2 className="text-xs sm:text-sm font-heading font-extrabold text-darkText leading-tight">
                               Collect Your <br />
@@ -922,7 +922,7 @@ export default function AdminDashboard() {
                               </span>
                             </h2>
                             <p className="text-[6px] text-darkText/60 mt-1 leading-normal">
-                              Premium Imported Plushies curated for collectors and cuddles.
+                              Where Flowers Never Fade — pipe cleaner bouquets & custom fuzzy wire crafts.
                             </p>
                             <div className="flex gap-1 justify-center mt-2">
                               <span className="text-[5px] bg-primary text-white px-2 py-0.5 rounded-full font-bold">Browse</span>
@@ -1469,7 +1469,7 @@ export default function AdminDashboard() {
             </button>
 
             <h3 className="font-body text-2xl font-extrabold text-darkText mb-6">
-              {editingProduct ? 'Edit Product Details' : 'Add New Plush Character'}
+              {editingProduct ? 'Edit Product Details' : 'Add New Bouquet'}
             </h3>
 
             <form onSubmit={handleProductSubmit} className="flex flex-col gap-4">
