@@ -63,11 +63,10 @@ export default function About() {
               transition={{ delay: idx * 0.12, duration: 0.5 }}
               className="flex flex-col items-center"
             >
-              <div className="arch-frame w-full max-w-[260px] aspect-[3/4] bg-cream mx-auto">
+              <div className="arch-frame w-full max-w-[260px] aspect-[3/4] mx-auto">
                 <img
                   src={item.src}
                   alt={item.alt}
-                  className="w-full h-full object-cover"
                   loading="lazy"
                 />
               </div>

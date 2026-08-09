@@ -89,11 +89,10 @@ export default function Hero({ introStage = 'complete' }: HeroProps) {
                   className="absolute inset-0 rounded-[40%] blur-3xl transition-all duration-500 opacity-50 group-hover:opacity-80"
                   style={{ backgroundColor: bouquet.glowColor }}
                 />
-                <div className="arch-frame relative z-10 w-full h-full bg-cream">
+                <div className="arch-frame relative z-10 w-full h-full">
                   <img
                     src={bouquet.src}
                     alt={bouquet.name}
-                    className="w-full h-full object-cover"
                   />
                 </div>
                 <div className="absolute bottom-[-28px] left-1/2 -translate-x-1/2 bg-white/95 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-gold/20 text-[10px] font-semibold text-darkText shadow-sm opacity-0 group-hover:opacity-100 transition-all duration-300 whitespace-nowrap z-25">

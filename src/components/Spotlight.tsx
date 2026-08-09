@@ -192,13 +192,13 @@ export default function Spotlight() {
 
                 <motion.div
                   whileHover={shouldReduceMotion ? {} : { scale: 1.03 }}
-                  className="w-full max-w-[380px] aspect-[3/4] flex items-center justify-center relative"
+                  className="w-full max-w-[320px] sm:max-w-[380px] mx-auto relative"
                 >
-                  <div className="arch-frame w-[85%] h-[90%] bg-cream">
+                  <div className="arch-frame w-full aspect-[3/4]">
                     <img
                       src={current.src}
                       alt={current.name}
-                      className="w-full h-full object-cover"
+                      loading="eager"
                     />
                   </div>
                 </motion.div>

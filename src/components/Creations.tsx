@@ -150,14 +150,13 @@ export function UniversePortals({ selectedUniverse, onSelectUniverse }: Universe
                   </>
                 )}
 
-                <div className="relative w-16 h-20 mx-auto mb-3 flex items-center justify-center">
+                <div className="relative w-16 h-20 mx-auto mb-3">
                   <div className="arch-frame w-full h-full">
                     <motion.img
                       src={u.plush}
                       alt={u.name}
                       animate={isSelected || isHovered ? { y: [0, -6, 0] } : {}}
                       transition={{ duration: 1.1, repeat: Infinity, ease: 'easeInOut' }}
-                      className="w-full h-full object-cover"
                     />
                   </div>
                 </div>

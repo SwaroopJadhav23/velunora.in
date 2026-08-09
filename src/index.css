@@ -142,10 +142,21 @@
   }
 
   .arch-frame {
+    position: relative;
     border-radius: 9999px 9999px 24px 24px;
     border: 2px solid #C4A35A;
     overflow: hidden;
     box-shadow: 0 12px 40px rgba(44, 44, 44, 0.08);
+    background-color: #F7F0E6;
+  }
+
+  .arch-frame > img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
   }
 }
 
