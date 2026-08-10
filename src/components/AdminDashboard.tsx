@@ -415,6 +415,7 @@ export default function AdminDashboard() {
                 <input
                   type={showPin ? "text" : "password"}
                   placeholder="Enter PIN (e.g. 1234)"
+                  autoComplete="current-password"
                   value={pin}
                   onChange={(e) => setPin(e.target.value)}
                   className="w-full bg-white border border-darkText/10 rounded-2xl py-4 pl-6 pr-12 text-center text-lg font-bold tracking-widest focus:outline-none focus:border-primary/50"
@@ -433,6 +434,7 @@ export default function AdminDashboard() {
                 <input
                   type="text"
                   placeholder="Enter Username / ID"
+                  autoComplete="username"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                   className="w-full bg-white border border-darkText/10 rounded-2xl py-3.5 px-5 text-sm font-semibold focus:outline-none focus:border-primary/50 text-left"
@@ -441,6 +443,7 @@ export default function AdminDashboard() {
                   <input
                     type={showLoginPassword ? "text" : "password"}
                     placeholder="Enter Password"
+                    autoComplete="current-password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     className="w-full bg-white border border-darkText/10 rounded-2xl py-3.5 pl-5 pr-12 text-sm font-semibold focus:outline-none focus:border-primary/50 text-left"
